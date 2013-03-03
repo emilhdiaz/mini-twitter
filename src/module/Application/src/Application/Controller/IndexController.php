@@ -30,7 +30,8 @@ class IndexController extends AbstractActionController
         
         return new ViewModel(array(
             'posts' => $this->getPostTable()->fetchAllByUser($user),
-            'username' => $user->email
+            'username' => $user->email,
+            'gravatar' => md5( strtolower( trim( $user->email ) ) )
         ));
     }
     
