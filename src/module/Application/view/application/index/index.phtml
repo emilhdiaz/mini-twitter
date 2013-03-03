@@ -1,0 +1,85 @@
+<!-- BEGIN BODY -->
+<body class="fixed-top breakpoint-1280 login">
+  <!-- BEGIN LOGO -->
+  <div class="header navbar navbar-inverse navbar-fixed-top">
+    	<!-- BEGIN TOP NAVIGATION BAR -->
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<!-- BEGIN LOGO -->
+				<a class="brand" href="index.html">
+				<img src="assets/img/logo.png" alt="logo">
+				</a>
+				<!-- END LOGO -->	
+			</div>
+		</div>
+		<!-- END TOP NAVIGATION BAR -->
+	</div>
+  <!-- END LOGO -->
+  <div class="content">
+  
+    <?php $this->headTitle('My Posts'); ?>
+    <h1><?php echo $this->escapeHtml('My Posts'); ?></h1>
+
+ <!-- BEGIN FORM-->
+ <form id="savePost" action="<?php echo $this->url('application/default', array('controller'=>'post','action'=>'save'));?>" class="form-horizontal" method="post">
+    <div class="control-group">
+       <label class="control-label" style="width: auto">New Post</label>
+       <div class="controls" style="margin-left: 90px">
+          <input type="text" class="m-wrap medium" name="body" />
+       </div>
+    </div>
+ </form>
+ <script>
+/* attach a submit handler to the form */
+$("#savePost").submit(function(event) {
+ 
+  /* stop form from submitting normally */
+  event.preventDefault();
+ 
+  /* get some values from elements on the page: */
+  var $form = $( this ),
+      body = $form.find( 'input[name="body"]' ).val(),
+      url = $form.attr( 'action' );
+ 
+  /* Send the data using post */
+  var posting = $.post( url, { body: body } );
+ 
+  /* Put the results in a div */
+  posting.done(function( data ) {
+    if (data.success) {
+        var posts = $('#posts');
+        posts.prepend('<div class="alert alert-info">'+data.body+'</div>');
+    }
+  });
+});
+</script>
+<!-- END FORM-->  
+
+<!-- BEGIN ALERTS PORTLET-->
+<div class="portlet ">
+    <div class="portlet-title">
+		<div class="tools">
+			<a href="javascript:;" class="collapse"></a>
+			<a href="#portlet-config" data-toggle="modal" class="config"></a>
+			<a href="javascript:;" class="reload"></a>
+			<a href="javascript:;" class="remove"></a>
+		</div>
+	</div>
+	<div id="posts" class="portlet-body">
+        <?php foreach ($posts as $post) : ?>
+		<div class="alert alert-info">
+			<?php echo $this->escapeHtml($post->body);?>
+		</div>
+        <?php endforeach; ?>
+	</div>
+</div>
+<!-- END ALERTS PORTLET-->
+
+</div>
+  <!-- BEGIN COPYRIGHT -->
+  <div class="copyright">
+    2013 &copy; Emil Diaz. CourseHorse Test.
+  </div>
+  <!-- END COPYRIGHT -->
+</body>
+<!-- END BODY -->

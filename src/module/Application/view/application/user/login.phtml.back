@@ -1,0 +1,113 @@
+<div class="login">
+  <!-- BEGIN LOGIN -->
+    <!-- BEGIN LOGIN FORM -->
+    <form class="form-vertical login-form" action="index.html">
+      <h3 class="form-title">Login to your account</h3>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-icon left">
+            <i class="icon-user"></i>
+            <input class="m-wrap" type="text" placeholder="Username" />
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-icon left">
+            <i class="icon-lock"></i>
+            <input class="m-wrap" type="password" style="" placeholder="Password" />
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <label class="checkbox">
+        <input type="checkbox" /> Remember me
+        </label>
+        <a href="index.html" id="login-btn" class="btn green pull-right">
+        Login <i class="m-icon-swapright m-icon-white"></i>
+        </a>            
+      </div>
+      <div class="forget-password">
+        <h4>Forgot your password ?</h4>
+        <p>
+          no worries, click <a href="javascript:;" class="" id="forget-password">here</a>
+          to reset your password.
+        </p>
+      </div>
+      <div class="create-account">
+        <p>
+          Don't have an account yet ?&nbsp; 
+          <a href="javascript:;" id="register-btn" class="">Create an account</a>
+        </p>
+      </div>
+    </form>
+    <!-- END LOGIN FORM -->        
+    <!-- BEGIN FORGOT PASSWORD FORM -->
+    <form class="form-vertical forget-form" action="index.html">
+      <h3 class="">Forget Password ?</h3>
+      <p>Enter your e-mail address below to reset your password.</p>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-icon left">
+            <i class="icon-envelope"></i>
+            <input class="m-wrap" type="text" placeholder="Email" />
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <a href="javascript:;" id="back-btn" class="btn">
+        <i class="m-icon-swapleft"></i> Back
+        </a>
+        <a href="javascript:;" id="forget-btn" class="btn green pull-right">
+        Submit <i class="m-icon-swapright m-icon-white"></i>
+        </a>            
+      </div>
+    </form>
+    <!-- END FORGOT PASSWORD FORM -->
+    <!-- BEGIN REGISTRATION FORM -->
+    <form class="form-vertical register-form" action="index.html">
+      <h3 class="">Sign Up</h3>
+      <p>Enter your account details below:</p>
+      <div class="control-group">
+        <div class="controls">
+          <div class="input-icon left">
+            <i class="icon-user"></i>
+            <input class="m-wrap" type="text" placeholder="Username" />
+          </div>
+        </div>
+        <div class="controls">
+          <div class="input-icon left">
+            <i class="icon-lock"></i>
+            <input class="m-wrap" type="password" placeholder="Password" />
+          </div>
+        </div>
+        <div class="controls">
+          <div class="input-icon left">
+            <i class="icon-ok"></i>
+            <input class="m-wrap" type="password" placeholder="Re-type Your Password" />
+          </div>
+        </div>
+        <div class="controls">
+          <div class="input-icon left">
+            <i class="icon-envelope"></i>
+            <input class="m-wrap" type="text" placeholder="Email" />
+          </div>
+        </div>
+        <div class="controls">
+          <label class="checkbox">
+          <input type="checkbox" /> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+          </label>  
+        </div>
+      </div>
+      <div class="form-actions">
+        <a href="javascript:;" id="register-back-btn" class="btn">
+        <i class="m-icon-swapleft"></i>  Back
+        </a>
+        <a href="index.html" id="register-submit-btn" class="btn green pull-right">
+        Sign Up <i class="m-icon-swapright m-icon-white"></i>
+        </a>            
+      </div>
+    </form>
+    <!-- END REGISTRATION FORM -->
+  <!-- END LOGIN -->
+</div>
