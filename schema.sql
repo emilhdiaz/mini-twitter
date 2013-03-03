@@ -20,3 +20,7 @@ PRIMARY KEY (user_id, follower_user_id),
 CONSTRAINT `follower_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`),
 CONSTRAINT `follower_follower_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
 ) ENGINE=InnoDB;
+
+insert into user(email, password) values('emil.h.diaz@gmail.com', 'temp');
+insert into user(email, password) values('katie@coursehorse.com', 'temp');
+insert into user(email, password) values('alex@coursehorse.com', 'temp');
