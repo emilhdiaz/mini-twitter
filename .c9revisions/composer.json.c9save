@@ -1,3 +1,0 @@
-{"ts":1362248822979,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
-{"contributors":[],"silentsave":false,"ts":1362248909953,"patch":[[{"diffs":[[1,"\"repositories\": [\n    {\n        \"type\": \"composer\",\n        \"url\": \"https://packages.zendframework.com/\"\n    }\n],\n\n\"require\": {\n    \"zendframework/zend-config\": \"2.*\",\n    \"zendframework/zend-http\": \"2.*\"\n},"]],"start1":0,"start2":0,"length1":0,"length2":207}]],"length":207,"saved":false}
-{"ts":1362249029644,"patch":[[{"diffs":[[0,"}\n],"],[-1,"\n\n\"require\": {\n    \"zendframework/zend-config\": \"2.*\",\n    \"zendframework/zend-http\": \"2.*\"\n},"]],"start1":109,"start2":109,"length1":98,"length2":4}]],"length":113,"saved":false}

@@ -3201,7 +3201,7 @@ Login page
 .login .content {
   background-color:#fff; 
   width: 291px;
-  margin: 0 auto; 
+  margin: 30px auto 0 auto; 
   padding: 30px;  
   padding-top: 20px;  
   padding-bottom: 15px;  
