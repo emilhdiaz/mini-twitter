@@ -2,10 +2,14 @@
 namespace Application\Model;
 
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Where;
+use Zend\Db\Sql\Predicate\Operator;
 
 class UserTable
 {
     protected $tableGateway;
+    protected $cache = array();
 
     public function __construct(TableGateway $tableGateway)
     {
@@ -17,16 +21,74 @@ class UserTable
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
+    
+    public function fetchAllFollowersOf(User $user) {
+        $resultSet = $this->tableGateway->select(function (Select $select) use ($user) {
+            $subquery = new Select();
+            $subquery->from('follower');
+            $subquery->columns(array('follower_user_id'));
+            $subquery->where(array('user_id'=>$user->id));
+            
+            $select->join(
+                array('f'=>$subquery),
+                'user.id = f.follower_user_id',
+                array()
+            );
+        });
+        return $resultSet;
+    }
+    
+    public function fetchAllFollowedBy(User $user) {
+        $resultSet = $this->tableGateway->select(function (Select $select) use ($user) {
+            $subquery = new Select();
+            $subquery->from('follower');
+            $subquery->columns(array('user_id'));
+            $subquery->where(array('follower_user_id'=>$user->id));
+            
+            $select->join(
+                array('f'=>$subquery), 
+                'user.id = f.user_id',
+                array()
+            );
+        });
+        return $resultSet;
+    }    
+    
+    public function fetchAllNotFollowedBy(User $user) {
+        $resultSet = $this->tableGateway->select(function (Select $select) use ($user) {
+            $subquery = new Select();
+            $subquery->from('follower');
+            $subquery->columns(array('user_id'));
+            $subquery->where(array('follower_user_id'=>$user->id));
+            
+            $select->join(
+                array('f'=>$subquery), 
+                'user.id = f.user_id',
+                array(),
+                $select::JOIN_LEFT
+            );
+            
+            $select->where(function (Where $where) use($user) {
+                $where->isNull('f.user_id');
+                $where->addPredicate(new Operator('id', Operator::OPERATOR_NOT_EQUAL_TO, $user->id));
+            });
+            $select->limit(10);
+        });            
+        return $resultSet;
+    }        
 
     public function getUser($id)
     {
         $id  = (int) $id;
-        $rowset = $this->tableGateway->select(array('id' => $id));
-        $row = $rowset->current();
-        if (!$row) {
-            throw new \Exception("Could not find row $id");
+        if( !array_key_exists($id, $this->cache) ) {
+            $rowset = $this->tableGateway->select(array('id' => $id));
+            $row = $rowset->current();
+            if (!$row) {
+                throw new \Exception("Could not find row $id");
+            }
+            $this->cache[$id] = $row;
         }
-        return $row;
+        return $this->cache[$id];
     }
     
     public function getUserByEmail($email)

@@ -1,88 +1,237 @@
+<?php $this->headTitle('Course Hourse Test'); ?>
 <!-- BEGIN BODY -->
-<body class="fixed-top breakpoint-1280 login">
-  <!-- BEGIN LOGO -->
-  <div class="header navbar navbar-inverse navbar-fixed-top">
-    	<!-- BEGIN TOP NAVIGATION BAR -->
-		<div class="navbar-inner">
-			<div class="container-fluid">
+<body class="fixed-top breakpoint-1280">
+    <!-- BEGIN LOGO -->
+    <div class="header navbar navbar-inverse navbar-fixed-top">
+        <!-- BEGIN TOP NAVIGATION BAR -->
+        <div class="navbar-inner">
+    		<div class="container-fluid">
 				<!-- BEGIN LOGO -->
-				<a class="brand" href="index.html">
-				<img src="http://www.gravatar.com/avatar/<?php echo $gravatar; ?>?size=40" />
+				<a class="brand" href="<?php echo $this->url('application'); ?>">
+				<img src="http://www.gravatar.com/avatar/<?php echo $gravatar; ?>?size=80" style="border: 3px solid black"/>
 				</a>
                 <div class="username" style="color: white; margin-top: 10px">
-                    <?php echo $username ?>
-                <div>
+                    <?php echo $username ?> 
+                </div>
+                <div class="username" style="color: gray; margin-top: 10px">
+                    <a href="<?php echo $this->url('logout'); ?>">Logout</a>
+                </div>
 				<!-- END LOGO -->	
 			</div>
 		</div>
 		<!-- END TOP NAVIGATION BAR -->
 	</div>
-  <!-- END LOGO -->
-  <div class="content">
-  
-    <?php $this->headTitle('My Posts'); ?>
-    <h1><?php echo $this->escapeHtml('My Posts'); ?></h1>
-
- <!-- BEGIN FORM-->
- <form id="savePost" action="<?php echo $this->url('application/default', array('controller'=>'post','action'=>'save'));?>" class="form-horizontal" method="post">
-    <div class="control-group">
-       <label class="control-label" style="width: auto">New Post</label>
-       <div class="controls" style="margin-left: 90px">
-          <input type="text" class="m-wrap medium" name="body" />
-       </div>
+    <!-- END LOGO -->
+    <div class="columns">
+    <div class="left feed">
+        <div class="content">
+            <h1><?php echo $this->escapeHtml('My Feed'); ?></h1>
+        
+             <!-- BEGIN FORM-->
+             <form id="savePost" action="<?php echo $this->url('application/default', array('controller'=>'post','action'=>'save'));?>" class="form-horizontal" method="post">
+                <div class="control-group">
+                   <label class="control-label" style="width: auto">New Post</label>
+                   <div class="controls" style="margin-left: 90px">
+                      <input type="text" class="m-wrap medium" name="body" />
+                   </div>
+                </div>
+             </form>
+            <!-- END FORM-->  
+        
+            <!-- BEGIN ALERTS PORTLET-->
+            <div class="portlet ">
+            	<div id="posts" class="portlet-body">
+                    <?php foreach ($posts as $post) : ?>
+            		<div id="post-<?php echo $post->id; ?>" class="alert alert-info">
+                        <div class="post-author">
+                            <?php echo $this->escapeHtml($post->user->email) . " wrote:"; ?> 
+                        </div>
+                        <div class="post-body">
+                            <span class="quote">"</span>
+                            <?php echo $this->escapeHtml($post->body);?>
+                            <span class="quote">"</span>
+                        </div>
+            		</div>
+                    <?php endforeach; ?>
+            	</div>
+            </div>
+            <!-- END ALERTS PORTLET-->
+        </div>
     </div>
- </form>
- <script>
-/* attach a submit handler to the form */
-$("#savePost").submit(function(event) {
- 
-  /* stop form from submitting normally */
-  event.preventDefault();
- 
-  /* get some values from elements on the page: */
-  var $form = $( this ),
-      body = $form.find( 'input[name="body"]' ).val(),
-      url = $form.attr( 'action' );
- 
-  /* Send the data using post */
-  var posting = $.post( url, { body: body } );
- 
-  /* Put the results in a div */
-  posting.done(function( data ) {
-    if (data.success) {
-        var posts = $('#posts');
-        posts.prepend('<div class="alert alert-info">'+data.body+'</div>');
+
+    <div class="right users">
+        <div class="content">
+            <h1><?php echo $this->escapeHtml('Following'); ?></h1>
+        
+            <!-- BEGIN ALERTS PORTLET-->
+            <div class="portlet ">
+            	<div id="followed" class="portlet-body">
+                    <?php foreach ($following as $user) : ?>
+            		<div id="following-<?php echo $user->id;?>"class="alert alert-info">
+                        <div class="left">
+                            <img src="http://www.gravatar.com/avatar/<?php echo $user->gravatarID; ?>?size=40" style="border: 1px solid black"/>
+                        </div>
+                        <div class="username left">
+                            <?php echo $this->escapeHtml($user->email);?>
+                        </div>
+                        <div class="input-icon right">
+                            <input type="button" value="Remove" name="stopFollowing" user_id="<?php echo $user->id;?>"/>
+                        </div>
+                        <div class="clear"></div>
+            		</div>
+                    <?php endforeach; ?>
+            	</div>
+            </div>
+            <!-- END ALERTS PORTLET-->
+        </div>
+        
+        <div class="content">
+            <h1><?php echo $this->escapeHtml('Other Users'); ?></h1>
+        
+            <!-- BEGIN ALERTS PORTLET-->
+            <div class="portlet ">
+            	<div id="followed" class="portlet-body">
+                    <?php foreach ($notFollowing as $user) : ?>
+            		<div id="user-<?php echo $user->id;?>"class="alert alert-info">
+                        <div class="left">
+                            <img src="http://www.gravatar.com/avatar/<?php echo $user->gravatarID; ?>?size=40" style="border: 1px solid black"/>
+                        </div>
+                        <div class="username left">
+                            <?php echo $this->escapeHtml($user->email);?>
+                        </div>
+                        <div class="input-icon right">
+                            <input type="button" value="Follow" name="follow" user_id="<?php echo $user->id;?>"/>
+                        </div>
+                        <div class="clear"></div>
+                	</div>
+                    <?php endforeach; ?>
+            	</div>
+            </div>
+            <!-- END ALERTS PORTLET-->
+        </div>    
+    </div>
+    <div class="clear"></div>
+
+    <!-- BEGIN COPYRIGHT -->
+    <div class="copyright">2013 &copy; Emil Diaz. CourseHorse Test.</div>
+    <!-- END COPYRIGHT -->
+    </div>
+  
+    <script>    
+    function bindActions() {
+    /* attach a submit handler to the form */
+    $("#savePost").submit(function(event) {
+     
+        /* stop form from submitting normally */
+        event.preventDefault();
+     
+        /* get some values from elements on the page: */
+        var $form = $( this ),
+            body = $form.find( 'input[name="body"]' ).val(),
+            url = $form.attr( 'action' );
+     
+        /* Send the data using post */
+        var posting = $.post( url, { body: body } );
+     
+        /* Put the results in a div */
+        posting.done(function( data ) {
+            if (data.success) {
+                addPost(data.post);
+            }
+        });
+    });
+    
+    $("[name=stopFollowing]").click(function(event) {  
+        /* stop form from submitting normally */
+        event.preventDefault();
+        
+        var user_id = $(this).attr("user_id");
+        $.ajax({ 
+            url : "<?php echo $this->url('application/default', array('controller'=>'user','action'=>'stopFollowing'));?>",
+            type : 'POST',
+            data : {
+                followed_user_id: user_id
+            },  
+            success: function( data ) {
+                if (data.success) {
+                    $('#following-'+user_id).remove();
+                }
+            }
+        });  
+    });
+    
+    $("[name=follow]").click(function(event) {  
+        /* stop form from submitting normally */
+        event.preventDefault();
+        
+        var user_id = $(this).attr("user_id");
+        $.ajax({ 
+            url : "<?php echo $this->url('application/default', array('controller'=>'user','action'=>'follow'));?>",
+            type : 'POST',
+            data : {
+                followed_user_id: user_id
+            },  
+            success: function( data ) {
+                if (data.success) {
+                    $('#user-'+user_id).remove();
+                    
+                    var following = $('#followed');
+                    following.prepend(
+                        '<div id="following-"'+data.user.id+' class="alert alert-info">'
+                            +'<div class="left">'
+                                +'<img src="http://www.gravatar.com/avatar/'+data.user.gravatarID+'?size=40" style="border: 1px solid black"/>'
+                            +'</div>'
+                            +'<div class="username left">'
+                                +data.user.email
+                            +'</div>'
+                            +'<div class="input-icon right">'
+                                +'<input type="button" value="Remove" name="stopFollowing" user_id="'+data.user.id+'"/>'
+                            +'</div>'
+                            +'<div class="clear"></div>'
+                        +'</div>'
+                    );
+                    
+                    bindActions();
+                }
+            }
+        });  
+    });
     }
-  });
-});
-</script>
-<!-- END FORM-->  
-
-<!-- BEGIN ALERTS PORTLET-->
-<div class="portlet ">
-    <div class="portlet-title">
-		<div class="tools">
-			<a href="javascript:;" class="collapse"></a>
-			<a href="#portlet-config" data-toggle="modal" class="config"></a>
-			<a href="javascript:;" class="reload"></a>
-			<a href="javascript:;" class="remove"></a>
-		</div>
-	</div>
-	<div id="posts" class="portlet-body">
-        <?php foreach ($posts as $post) : ?>
-		<div class="alert alert-info">
-			<?php echo $this->escapeHtml($post->body);?>
-		</div>
-        <?php endforeach; ?>
-	</div>
-</div>
-<!-- END ALERTS PORTLET-->
-
-</div>
-  <!-- BEGIN COPYRIGHT -->
-  <div class="copyright">
-    2013 &copy; Emil Diaz. CourseHorse Test.
-  </div>
-  <!-- END COPYRIGHT -->
+    
+    function addPost(post) {
+        var posts = $('#posts');
+                
+        if( posts.children().length >=5 ) {
+            $("#posts > div:last").remove();
+        }
+            
+        posts.prepend(
+            '<div id="post-'+post.id+'" class="alert alert-info">'
+                +'<div class="post-author">'+post.user.email+' wrote:</div>'
+                +'<div class="post-body">'
+                    +'<span class="quote">"</span>"'
+                    + post.body
+                    +'<span class="quote">"</span>'
+                +'</div>'
+            +'</div>'
+        );
+    }
+    
+    bindActions();
+    
+    /* setup post polling */
+    (function poll(){
+        $.ajax({ 
+            url: "<?php echo $this->url('application/default', array('controller'=>'post','action'=>'poll'));?>", 
+            success: function(data) {
+                $.each(data.posts.reverse(), function(i, post) {addPost(post)});
+            }, 
+            complete: function() {
+                setTimeout(poll,3000);
+            }, 
+            timeout: 30000
+        });
+    })();    
+    </script>  
 </body>
 <!-- END BODY -->

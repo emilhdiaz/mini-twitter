@@ -30,6 +30,16 @@ return array(
                     ),
                 ),
             ),
+            'logout' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/logout',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'logout',
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -81,7 +91,7 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Post'  => 'Application\Controller\PostController',
-            'Application\Controller\User'  => 'Application\Controller\UserController'
+            'Application\Controller\User'  => 'Application\Controller\UserController',
         ),
     ),
     'view_manager' => array(

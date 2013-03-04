@@ -11,12 +11,14 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Session\SessionManager;
 use Zend\Session\Container; 
 
 class IndexController extends AbstractActionController
 {
     protected $postTable;
     protected $userTable;
+    protected $followerTable;
     
     public function indexAction()
     {
@@ -27,11 +29,30 @@ class IndexController extends AbstractActionController
         }
         
         $user = $this->getUserTable()->getUser($session->user_id);
+        $posts = array();
+        $following = array();
+        $notFollowing = array();
         
+        foreach($this->getPostTable()->fetchAllByUser($user) as $post) {
+            $post->user = $user;
+            $posts[$post->id] = $post;
+        }        
+        
+        foreach($this->getPostTable()->fetchAllFromFollowedUsers($user) as $post) {
+            $post->user = $this->getUserTable()->getUser($post->user_id);
+            $posts[$post->id] = $post;
+        }
+        
+        arsort($posts);
+        $posts = array_slice($posts, 0, 5);
+        $session->last_post_retrived = current($posts) ? current($posts)->id : 0;
+                      
         return new ViewModel(array(
-            'posts' => $this->getPostTable()->fetchAllByUser($user),
-            'username' => $user->email,
-            'gravatar' => md5( strtolower( trim( $user->email ) ) )
+            'posts'         => $posts,
+            'following'     => $this->getUserTable()->fetchAllFollowedBy($user),
+            'notFollowing'  => $this->getUserTable()->fetchAllNotFollowedBy($user),
+            'username'      => $user->email,
+            'gravatar'      => $user->gravatarID
         ));
     }
     
@@ -44,7 +65,7 @@ class IndexController extends AbstractActionController
             return new ViewModel();
         } else {
             $user = $this->getUserTable()->getUserByEmail($email);
-            if( $user->password != $password ){
+            if( $user->password != md5($password) ){
                 return new ViewModel(array(
                    'error' => 'Invalid login, please try again' 
                 ));
@@ -53,6 +74,13 @@ class IndexController extends AbstractActionController
             $session->user_id = $user->id;
             $this->redirect()->toRoute('application');
         }
+    }
+    
+    public function logoutAction() 
+    {
+            $session = new SessionManager();    
+            $session->destroy();
+            $this->redirect()->toRoute('login');
     }    
                 
     public function getPostTable()
@@ -71,5 +99,14 @@ class IndexController extends AbstractActionController
             $this->userTable = $sm->get('Application\Model\UserTable');
         }
         return $this->userTable;
-    }     
+    } 
+    
+    public function getFollowerTable()
+    {
+        if (!$this->followerTable) {
+            $sm = $this->getServiceLocator();
+            $this->followerTable = $sm->get('Application\Model\FollowerTable');
+        }
+        return $this->followerTable;
+    }    
 }

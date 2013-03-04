@@ -3,6 +3,8 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+use Zend\Session\Container; 
 
 class UserController extends AbstractActionController
 {
@@ -13,13 +15,31 @@ class UserController extends AbstractActionController
         $session = new Container('user'); 
         $user = $this->getUserTable()->getUser($session->user_id);
         
-        $followed_user_id = $this->getParam('followed_user_id');
+        $followed_user_id = $this->getRequest()->getPost('followed_user_id');
         $followed_user = $this->getUserTable()->getUser($followed_user_id);
         
         $this->getFollowerTable()->addFollower($followed_user, $user);
         
-        return true;
+        return new JsonModel(array(
+            'success'=>true,
+            'user'=> $followed_user
+        ));
     }
+    
+    public function stopFollowingAction() {
+        $session = new Container('user'); 
+        $user = $this->getUserTable()->getUser($session->user_id);
+        
+        $followed_user_id = $this->getRequest()->getPost('followed_user_id');
+        $followed_user = $this->getUserTable()->getUser($followed_user_id);
+        
+        $this->getFollowerTable()->deleteFollower($followed_user, $user);
+
+        return new JsonModel(array(
+            'success'=>true,
+            'user'=> $followed_user
+        ));
+    }    
     
     public function getUserTable()
     {

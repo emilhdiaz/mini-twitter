@@ -41,6 +41,7 @@ body {
   padding: 0px !important;
   margin: 0px !important;
   font-size:13px; 
+  background-color: #444 !important;
 }
 
 /***
@@ -237,7 +238,7 @@ Header and header elements.
   border: 0px;
   padding: 0px; 
   box-shadow: none;
-  height: 42px; 
+  height: 80px; 
 }
 
 .header .nav {
@@ -3185,12 +3186,7 @@ FAQ page
 Login page
 ***/
 
-/* logo page */
-.login {
-  background-color: #444 !important;
-}
-
-.login .logo {
+.logo {
   width: 247px;
   margin: 0 auto;   
   margin-top:60px;
@@ -3198,60 +3194,59 @@ Login page
   text-align: center;
 }  
 
-.login .content {
-  background-color:#fff; 
-  width: 291px;
+.content {
+  background-color:#fff;
   margin: 30px auto 0 auto; 
   padding: 30px;  
   padding-top: 20px;  
   padding-bottom: 15px;  
 }
 
-.login .content h3 {
+.content h3 {
   color: #000;
 }
-.login .content h4  {
+.content h4  {
   color: #555;
 }
 
-.login .content p {
+.content p {
   color: #222;
 }
 
-.login .content .login-form,
-.login .content .forget-form {
+.content .login-form,
+.content .forget-form {
     padding: 0px;
     margin: 0px;
 }
 
-.login .content .m-wrap {
+.content .m-wrap {
   width: 249px;
   border-left: 0 !important;
 }
 
-.login .content .input-icon {
+.content .input-icon {
   border-left: 2px solid #35aa47 !important;
   margin-bottom: 20px;
 }
 
-.login .content .input-icon .m-wrap {  
+.content .input-icon .m-wrap {  
   margin: 0px !important;
 }
 
-.login .content .forget-form {
+.content .forget-form {
   display: none;
 }
 
-.login .content .register-form {
+.content .register-form {
   display: none;
 }
 
-.login .content .form-title {
+.content .form-title {
   font-weight: 300;
   margin-bottom: 25px;
 }
 
-.login .content .form-actions {
+.content .form-actions {
   background-color: #fff;
   clear: both;
   border: 0px;
@@ -3261,38 +3256,38 @@ Login page
   margin-right: -30px;
 }
 
-.login .content .forget-form .form-actions {
+.content .forget-form .form-actions {
   border: 0;
   margin-bottom: 0;
   padding-bottom: 20px;
 }  
 
-.login .content .register-form .form-actions {
+.content .register-form .form-actions {
   border: 0;
   margin-bottom: 0;
   padding-bottom: 0px;
 }
 
-.login .content .form-actions .checkbox {
+.content .form-actions .checkbox {
   margin-top: 8px;
   display: inline-block;
 }
 
-.login .content .form-actions .btn {
+.content .form-actions .btn {
   margin-top: 1px;
 }
 
-.login .content .forget-password {
+.content .forget-password {
   margin-top: 25px;
 }
 
-.login .content .create-account {
+.content .create-account {
   border-top: 1px dotted #eee;
   padding-top: 10px;
   margin-top: 15px;
 }
 
-.login .content .create-account a {
+.content .create-account a {
   display: inline-block;
   margin-top: 5px;
 }
@@ -4212,4 +4207,42 @@ Invoice page
 
 .invoice .invoice-block {
 	text-align:right;
+}
+
+.quote {
+    font-size: 24px;    
+}
+
+.post-body {
+    font-weight: bold;
+    font-family: 'Open Sans';
+}
+
+.post-author {
+    color: gray;
+    font-style:italic;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+.columns {
+    margin: 100px;
+}
+
+.username {
+    margin: 3px;
+}
+
+.login {
+    width: 300px;
 }

@@ -17,3 +17,6 @@
 {"ts":1362260958932,"patch":[[{"diffs":[[0,"ctPrototype(new "],[-1,"User"],[1,"Object"],[0,"());\n           "]],"start1":2573,"start2":2573,"length1":36,"length2":38}]],"length":3399,"saved":false}
 {"ts":1362260961700,"patch":[[{"diffs":[[0,"ype(new "],[-1,"Object"],[1,"Std"],[0,"());\n   "]],"start1":2581,"start2":2581,"length1":22,"length2":19}]],"length":3396,"saved":false}
 {"ts":1362260966879,"patch":[[{"diffs":[[0,"w TableGateway('"],[-1,"us"],[1,"follow"],[0,"er', $dbAdapter,"]],"start1":2626,"start2":2626,"length1":34,"length2":38}]],"length":3400,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1362283450283,"patch":[[{"diffs":[[0,"ype(new "],[1,"\\"],[0,"Std());\n"]],"start1":2581,"start2":2581,"length1":16,"length2":17}]],"length":3401,"saved":false}
+{"ts":1362283549795,"patch":[[{"diffs":[[0,"new "],[-1,"\\Std"],[1,"Follower"],[0,"());"]],"start1":2585,"start2":2585,"length1":12,"length2":16}]],"length":3405,"saved":false}
+{"ts":1362283593478,"patch":[[{"diffs":[[0,"\\UserTable;\n"],[1,"use Application\\Model\\Follower;\nuse Application\\Model\\FollowerTable;\n"],[0,"use Applicat"]],"start1":461,"start2":461,"length1":24,"length2":93}]],"length":3474,"saved":false}

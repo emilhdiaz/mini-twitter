@@ -14,10 +14,14 @@ use Zend\Mvc\MvcEvent;
 
 use Application\Model\User;
 use Application\Model\UserTable;
+use Application\Model\Follower;
+use Application\Model\FollowerTable;
 use Application\Model\Post;
 use Application\Model\PostTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Session\SessionManager;
+use Zend\Session\Container;
 
 class Module
 {
@@ -27,7 +31,20 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+#        $this->bootstrapSession($e);
     }
+    
+#    public function bootstrapSession(MvcEvent $e)
+#    {
+#        $session = new SessionManager();
+#        $session->start();
+#
+#        $container = new Container('user');
+#        if (!isset($container->init)) {
+#             $session->regenerateId(true);
+#             $container->init = 1;
+#        }
+#    }    
 
     public function getConfig()
     {
@@ -69,7 +86,7 @@ class Module
                 'FollowerTableGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Std());
+                    $resultSetPrototype->setArrayObjectPrototype(new Follower());
                     return new TableGateway('follower', $dbAdapter, null, $resultSetPrototype);
                 },                
                 'Application\Model\PostTable' =>  function($sm) {

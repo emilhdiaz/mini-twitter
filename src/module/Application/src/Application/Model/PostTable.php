@@ -3,6 +3,7 @@ namespace Application\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Where;
 
 class PostTable
 {
@@ -16,10 +17,24 @@ class PostTable
     public function fetchAllByUser(User $user) {
         $resultSet = $this->tableGateway->select(function (Select $select) use($user) {
             $select->where(array('user_id' => $user->id));
-            $select->order('id DESC')->limit(10);
+            $select->order('id DESC')->limit(5);
         });
         return $resultSet;
     }
+    
+    public function fetchAllFromFollowedUsers(User $user, $since = 0) {
+        $resultSet = $this->tableGateway->select(function (Select $select) use ($user, $since) {
+            $select->join('follower', 'follower.user_id = post.user_id');
+            
+            $select->where(function (Where $where) use($user, $since) {
+                $where->equalTo('follower.follower_user_id', $user->id);
+                $where->greaterThan('id',$since);
+            });
+            $select->order('id DESC')->limit(5);
+        });
+        
+        return $resultSet;
+    }    
 
     public function getPost($id)
     {
@@ -41,7 +56,7 @@ class PostTable
 
         $id = (int)$post->id;
         if ($id == 0) {
-            $this->tableGateway->insert($data);
+            $post->id = $this->tableGateway->insert($data);
         } else {
             if ($this->getPost($id)) {
                 $this->tableGateway->update($data, array('id' => $id));

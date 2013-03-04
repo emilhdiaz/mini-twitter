@@ -2,6 +2,7 @@
 namespace Application\Model;
 
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Select;
 
 class FollowerTable
 {
@@ -10,11 +11,6 @@ class FollowerTable
     public function __construct(TableGateway $tableGateway)
     {
         $this->tableGateway = $tableGateway;
-    }
-
-    public function fetchAllFollowers(User $user) {
-        $resultSet = $this->tableGateway->select(array('user_id' => $user->id));
-        return $resultSet;
     }
 
     public function addFollower(User $user, User $follower) {
@@ -34,7 +30,7 @@ class FollowerTable
         } 
     }
 
-    public function deleteFollower($user_id, $follower_user_id) {
-        $this->tableGateway->delete(array('user_id' => $user_id, 'follower_user_id', $follower_user_id));
+    public function deleteFollower(User $user, User $follower) {
+        $this->tableGateway->delete(array('user_id' => $user->id, 'follower_user_id', $follower->id));
     }
 }

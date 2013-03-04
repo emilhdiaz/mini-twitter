@@ -2,7 +2,7 @@
 <body class="login">
   <!-- BEGIN LOGO -->
   <div class="logo">
-    <img src="assets/img/logo-big.png" alt="" /> 
+    
   </div>
   <!-- END LOGO -->
   <!-- BEGIN LOGIN -->
@@ -10,6 +10,9 @@
     <!-- BEGIN LOGIN FORM -->
     <form id="login_form" class="form-vertical login-form" action="<?php echo $this->url('login');?>" method="post">
       <h3 class="form-title">Login to your account</h3>
+      <?php if(isset($error)) :?>
+      <div class="alert alert-error"><?php echo $error;?></div>
+      <?php endif;?>
       <div class="control-group">
         <div class="controls">
           <div class="input-icon left">
@@ -31,6 +34,7 @@
           </div>
         </div>
       </div>
+      <div class="clear"></div>
     </form>
     <!-- END LOGIN FORM -->        
   </div>

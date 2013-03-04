@@ -3,13 +3,6 @@ Large notebooks and desktops
 ***/
  @media (min-width: 980px) { 
  	/***
-	Remove horizontal scroll
-	***/
-	body {
-		overflow-x: hidden;
-	}
-
- 	/***
  	Page sidebar
  	***/
  	.page-sidebar {
@@ -29,6 +22,16 @@ Large notebooks and desktops
 		margin-top: 0px;
 		min-height: 860px; 
 	}
+    
+    .feed {
+        min-width: 400px;
+        width: 60%;
+    }
+    
+    .users {
+        min-width: 400px;
+        width: 30%;
+    }
 }
 
 /***
@@ -127,7 +130,7 @@ For tablets and phones
 	.styler-panel {
 		top:55px;
 		right:20px;
-	}
+	}    
 }
 
 @media (min-width: 768px) and (max-width: 1280px) { 
@@ -180,7 +183,6 @@ For tablets and phones
 	  border-left: 15px solid transparent; 
 	  border-right: 15px solid transparent; 
 	}
-
 } 
  
 @media (max-width: 767px) { 
