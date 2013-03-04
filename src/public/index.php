@@ -10,7 +10,7 @@ chdir(dirname(__DIR__));
 // Setup autoloading
 require 'init_autoloader.php';
 
-session_save_path(__DIR__);
+//session_save_path(__DIR__);
 
 // Run the application!
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
